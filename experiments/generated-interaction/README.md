@@ -1,5 +1,11 @@
 # Generated cross-match interaction
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/proxy-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether extra image evidence between matches resolves a deliberately ambiguous local task.
 
 **Construction.** RM029 jointly moves patches with cross-match relations. RM032 uses bridge pixels, finite displacement-state factors and four min-sum belief-propagation sweeps. Controls include local-only, independent bridge marginals, relationship-shuffled BP and simple expected-factor mean messages.

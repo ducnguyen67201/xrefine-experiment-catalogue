@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="730" viewBox="0 0 900 730" role="img" aria-labelledby="title desc">
+<title id="title">XRefine baseline versus our cross-match experiment</title>
+<desc id="desc">Two six-step chains keep the same input matches, local patch features, coordinate decoder, pose estimation and metrics. The experimental chain inserts other-match mean or learned attention and bounded channel modulation before the frozen score-map head. Independent and shuffled controls test the context association.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#64748b"/></marker></defs>
+<rect width="900" height="730" fill="white"/>
+<g font-family="Arial, sans-serif" fill="#17212f">
+<text x="450" y="30" text-anchor="middle" font-size="24" font-weight="700">Where we changed XRefine</text>
+<text x="220" y="63" text-anchor="middle" font-size="20" font-weight="700">BASELINE B</text>
+<text x="680" y="63" text-anchor="middle" font-size="20" font-weight="700">OUR CROSS-MATCH VARIANTS</text>
+<rect x="15" y="82" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="31" y="107" font-size="19" font-weight="700">1. Same images and matches</text>
+<text x="31" y="131" font-size="15">Raw endpoints p0, p1</text>
+<path d="M220 149V162" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="475" y="82" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="491" y="107" font-size="19" font-weight="700">1. Same images and matches</text>
+<text x="491" y="131" font-size="15">Raw endpoints p0, p1</text>
+<path d="M680 149V162" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="15" y="166" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="31" y="191" font-size="19" font-weight="700">2. Local patch features</text>
+<text x="31" y="215" font-size="15">11x11 patches; CNN + within-match attention</text>
+<path d="M220 233V246" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="475" y="166" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="491" y="191" font-size="19" font-weight="700">2. Same local patch features</text>
+<text x="491" y="215" font-size="15">11x11 patches; CNN + within-match attention</text>
+<path d="M680 233V246" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="15" y="250" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="31" y="275" font-size="19" font-weight="700">3. Frozen 3x3 score head</text>
+<text x="31" y="299" font-size="15">No module linking different matches</text>
+<path d="M220 317V330" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="475" y="250" width="410" height="66" rx="9" fill="#fff0d6" stroke="#ba6a0a" stroke-width="2"/>
+<text x="491" y="275" font-size="19" font-weight="700">3. ADD other-match context</text>
+<text x="491" y="299" font-size="15">Mean / attention -&gt; channel scaling -&gt; same head</text>
+<path d="M680 317V330" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="15" y="334" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="31" y="359" font-size="19" font-weight="700">4. Decode refined q0, q1</text>
+<text x="31" y="383" font-size="15">Soft-argmax; retain all correspondence IDs</text>
+<path d="M220 401V414" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="475" y="334" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="491" y="359" font-size="19" font-weight="700">4. Same coordinate decoder</text>
+<text x="491" y="383" font-size="15">Soft-argmax; retain all correspondence IDs</text>
+<path d="M680 401V414" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="15" y="418" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="31" y="443" font-size="19" font-weight="700">5. Estimate camera pose</text>
+<text x="31" y="467" font-size="15">GC-RANSAC + pose recovery</text>
+<path d="M220 485V498" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="475" y="418" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="491" y="443" font-size="19" font-weight="700">5. Same pose pipeline</text>
+<text x="491" y="467" font-size="15">GC-RANSAC + pose recovery</text>
+<path d="M680 485V498" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+<rect x="15" y="502" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="31" y="527" font-size="19" font-weight="700">6. Measure accuracy / tails</text>
+<text x="31" y="551" font-size="15">Matched pilot AUC5 and severe errors</text>
+<rect x="475" y="502" width="410" height="66" rx="9" fill="#eef6fb" stroke="#6687a0" stroke-width="2"/>
+<text x="491" y="527" font-size="19" font-weight="700">6. Same evaluation</text>
+<text x="491" y="551" font-size="15">Matched pilot AUC5 and severe errors</text>
+<rect x="15" y="600" width="870" height="111" rx="9" fill="#fafbfc" stroke="#cbd5e1"/>
+<text x="30" y="625" font-size="17" font-weight="700">What changed: context from eight other matches before the score head.</text>
+<text x="30" y="649" font-size="16">Independent control: own-match information only.</text>
+<text x="30" y="672" font-size="16">Shuffled control: real same-pair features; prescribed neighbor links broken.</text>
+<text x="30" y="695" font-size="16">All other stages shown are kept within each matched comparison.</text>
+</g></svg>

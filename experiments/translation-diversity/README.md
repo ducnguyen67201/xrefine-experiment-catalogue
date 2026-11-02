@@ -1,5 +1,11 @@
 # Translation-normal diversity (RM049)
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/selection-and-pose-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether selecting geometrically diverse translation constraints addresses the earlier coverage failures.
 
 **Construction.** Three GT-free prepasses (full/even/odd populations) supply opposite-fold information weights. A normal/eigengap-diversity quota uses reliability gates and exact full-baseline fallback. Confidence-only, equal-count and shuffled controls use the same acquired population and pose pipeline.

@@ -1,5 +1,11 @@
 # Verification, ambiguity ranking and spatial coverage
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/selection-and-pose-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested training-free match ranking/selection on the same acquired matches.
 
 **Assignment persistence (AR).** Forbid a candidate and measure the change in the global appearance assignment. Its8-pair/5-draw screen had a favorable mean but failed consistency and cost gates. V9 only recovered scoring of sealed V8 outputs after a join failure; it was not another scientific variant.

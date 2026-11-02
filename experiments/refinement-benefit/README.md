@@ -1,5 +1,11 @@
 # Refinement benefit and endpoint actions
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/coordinate-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether we should apply a refinement, rather than assuming every refined endpoint helps.
 
 **Whole-pair utility.** Twelve raw-match-set features and opposite-scene out-of-fold ridge predict capped pose-loss benefit. The decision uses both raw or both refined endpoints for the entire pair. Confidence and shuffled gates are explicit controls. Full 1500-pair × ten-draw AUC5: stock48.4091 → utility48.2133. Only 29 pairs selected raw; unchanged-input solver variability limits causal attribution.

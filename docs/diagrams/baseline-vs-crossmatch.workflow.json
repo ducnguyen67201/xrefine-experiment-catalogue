@@ -1,0 +1,335 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "XRefine baseline and our cross-match change",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-baseline-crossmatch-20261102/baseline-vs-crossmatch.html",
+    "repository": {
+      "url": "https://github.com/ducnguyen67201/xrefine-experiment-catalogue.git",
+      "revision": "dda7c33627903be95a969e1463bbe458500258e3",
+      "provider": "github"
+    },
+    "legend": {
+      "mode": "auto",
+      "entries": {
+        "backend": {
+          "label": "Processing step"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "input",
+      "label": "1. Inputs"
+    },
+    {
+      "id": "features",
+      "label": "2. Local features"
+    },
+    {
+      "id": "maps",
+      "label": "3. Score maps"
+    },
+    {
+      "id": "coordinates",
+      "label": "4. Refined points"
+    },
+    {
+      "id": "pose",
+      "label": "5. Pose estimation"
+    },
+    {
+      "id": "metrics",
+      "label": "6. Evaluation"
+    }
+  ],
+  "phases": [
+    {
+      "id": "baseline",
+      "label": "Baseline: frozen Small",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "candidate",
+      "label": "Our mean / attention variants",
+      "fromCol": 1,
+      "toCol": 1,
+      "variant": "emphasis"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "base0",
+      "lane": "input",
+      "col": 0,
+      "type": "backend",
+      "label": "Images + raw matches",
+      "sublabel": "XFeat* population p0, p1",
+      "tag": "BASELINE B",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-attention-045/PROTOCOL-045.md",
+          "line": 5,
+          "end_line": 25
+        }
+      ]
+    },
+    {
+      "id": "ours0",
+      "lane": "input",
+      "col": 1,
+      "type": "backend",
+      "label": "Same images + matches",
+      "sublabel": "KEEP acquired rows",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-attention-045/PROTOCOL-045.md",
+          "line": 5,
+          "end_line": 25
+        }
+      ]
+    },
+    {
+      "id": "base1",
+      "lane": "features",
+      "col": 0,
+      "type": "backend",
+      "label": "Patch CNN + attention",
+      "sublabel": "11x11 paired patches",
+      "tag": "BASELINE B",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-042/crossmatch_042.py",
+          "line": 90,
+          "end_line": 129
+        }
+      ]
+    },
+    {
+      "id": "ours1",
+      "lane": "features",
+      "col": 1,
+      "type": "backend",
+      "label": "Same patch processing",
+      "sublabel": "KEEP within-match attention",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-042/crossmatch_042.py",
+          "line": 90,
+          "end_line": 129
+        }
+      ]
+    },
+    {
+      "id": "base2",
+      "lane": "maps",
+      "col": 0,
+      "type": "backend",
+      "label": "Frozen 3x3 score head",
+      "sublabel": "No across-match module",
+      "tag": "BASELINE B",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-042/crossmatch_042.py",
+          "line": 512,
+          "end_line": 547
+        }
+      ]
+    },
+    {
+      "id": "ours2",
+      "lane": "maps",
+      "col": 1,
+      "type": "backend",
+      "label": "Add context, then head",
+      "sublabel": "CHANGE mean / learned attention",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-042/crossmatch_042.py",
+          "line": 512,
+          "end_line": 547
+        }
+      ]
+    },
+    {
+      "id": "base3",
+      "lane": "coordinates",
+      "col": 0,
+      "type": "backend",
+      "label": "Soft-argmax to q0, q1",
+      "sublabel": "Refine both endpoints",
+      "tag": "BASELINE B",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-042/crossmatch_042.py",
+          "line": 512,
+          "end_line": 547
+        }
+      ]
+    },
+    {
+      "id": "ours3",
+      "lane": "coordinates",
+      "col": 1,
+      "type": "backend",
+      "label": "Same coordinate decoding",
+      "sublabel": "KEEP all match identities",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-042/crossmatch_042.py",
+          "line": 512,
+          "end_line": 547
+        }
+      ]
+    },
+    {
+      "id": "base4",
+      "lane": "pose",
+      "col": 0,
+      "type": "backend",
+      "label": "GC + pose + recovery",
+      "sublabel": "Existing qualified solver",
+      "tag": "BASELINE B",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-attention-045/PROTOCOL-045.md",
+          "line": 65,
+          "end_line": 100
+        }
+      ]
+    },
+    {
+      "id": "ours4",
+      "lane": "pose",
+      "col": 1,
+      "type": "backend",
+      "label": "Same GC / pose pipeline",
+      "sublabel": "KEEP solver and error rule",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/cross-match/crossmatch-attention-045/PROTOCOL-045.md",
+          "line": 65,
+          "end_line": 100
+        }
+      ]
+    },
+    {
+      "id": "base5",
+      "lane": "metrics",
+      "col": 0,
+      "type": "backend",
+      "label": "AUC5 + severe errors",
+      "sublabel": "Fresh solver repeats",
+      "tag": "BASELINE B",
+      "sources": [
+        {
+          "path": "experiments/cross-match/README.md",
+          "line": 3,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "ours5",
+      "lane": "metrics",
+      "col": 1,
+      "type": "backend",
+      "label": "Same matched evaluation",
+      "sublabel": "KEEP comparison protocol",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/cross-match/README.md",
+          "line": 3,
+          "end_line": 11
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "baseEdge0",
+      "from": "base0",
+      "to": "base1"
+    },
+    {
+      "id": "oursEdge0",
+      "from": "ours0",
+      "to": "ours1",
+      "variant": "default"
+    },
+    {
+      "id": "baseEdge1",
+      "from": "base1",
+      "to": "base2"
+    },
+    {
+      "id": "oursEdge1",
+      "from": "ours1",
+      "to": "ours2",
+      "variant": "emphasis"
+    },
+    {
+      "id": "baseEdge2",
+      "from": "base2",
+      "to": "base3"
+    },
+    {
+      "id": "oursEdge2",
+      "from": "ours2",
+      "to": "ours3",
+      "variant": "emphasis"
+    },
+    {
+      "id": "baseEdge3",
+      "from": "base3",
+      "to": "base4"
+    },
+    {
+      "id": "oursEdge3",
+      "from": "ours3",
+      "to": "ours4",
+      "variant": "default"
+    },
+    {
+      "id": "baseEdge4",
+      "from": "base4",
+      "to": "base5"
+    },
+    {
+      "id": "oursEdge4",
+      "from": "ours4",
+      "to": "ours5",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "The exact insertion point",
+      "items": [
+        "Capture 64x3x3 features AFTER original within-match attention.",
+        "Pool both endpoints; use eight other matches; learn bounded FiLM channel scales.",
+        "Apply scales BEFORE the unchanged frozen score-map head."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Controls and results",
+      "items": [
+        "Independent: own-match context. Shuffle: break the prescribed neighbor association.",
+        "Mean pilot: B52.18 -> C44.89. Attention: B50.01 -> C46.26.",
+        "Separate 32-pair pilots; neither replaces the full 55.04 result."
+      ]
+    }
+  ]
+}

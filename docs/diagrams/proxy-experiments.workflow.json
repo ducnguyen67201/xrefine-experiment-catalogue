@@ -1,0 +1,150 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Proxy experiments: what changed, and what was measured",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-proxy-experiments-20261102/proxy-experiments.html",
+    "repository": {
+      "url": "https://github.com/ducnguyen67201/xrefine-experiment-catalogue.git",
+      "provider": "github",
+      "link_mode": "web",
+      "revision": "dda7c33627903be95a969e1463bbe458500258e3"
+    },
+    "legend": {
+      "entries": {
+        "external": { "label": "KEEP: fixed inputs" },
+        "backend": { "label": "CHANGE: tested computation" },
+        "messagebus": { "label": "EVALUATE: proxy only" },
+        "security": { "label": "RESULT: no pose promotion" }
+      }
+    }
+  },
+  "lanes": [
+    { "id": "bridge", "label": "Generated bridge interaction · RM032" },
+    { "id": "heatmap", "label": "Heatmap uncertainty · HPatches" }
+  ],
+  "phases": [
+    { "id": "inputs", "label": "1 · Keep inputs", "fromCol": 0, "toCol": 0 },
+    { "id": "signal", "label": "2 · Change signal", "fromCol": 1, "toCol": 1 },
+    { "id": "inference", "label": "3 · Compute readout", "fromCol": 2, "toCol": 2 },
+    { "id": "evaluation", "label": "4 · Test controls", "fromCol": 3, "toCol": 3 },
+    { "id": "outcome", "label": "5 · Evidence limit", "fromCol": 4, "toCol": 4 }
+  ],
+  "mainPath": ["bridge_input", "bridge_factors", "bridge_infer", "bridge_score", "bridge_result"],
+  "semanticChecks": {
+    "allowedRoots": ["bridge_input", "heatmap_input"],
+    "allowedTerminals": ["bridge_result", "heatmap_result"],
+    "requiredPaths": [
+      { "from": "bridge_input", "to": "bridge_result" },
+      { "from": "heatmap_input", "to": "heatmap_result" }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "bridge_input", "lane": "bridge", "col": 0,
+      "type": "external", "label": "Ambiguous patches",
+      "sublabel": "Generated views + bridge pixels", "tag": "KEEP fixed cases",
+      "sources": [{ "path": "experiments/generated-interaction/bridge-bp-rm032/protocol.md", "line": 35, "end_line": 43, "label": "Frozen generated construction" }]
+    },
+    {
+      "id": "bridge_factors", "lane": "bridge", "col": 1,
+      "type": "backend", "label": "Finite factor tables",
+      "sublabel": "81 states; extra bridge evidence", "tag": "CHANGE signal",
+      "sources": [
+        { "path": "experiments/generated-interaction/bridge-bp-rm032/bridge_context.py", "line": 23, "end_line": 40, "label": "States and factor shapes" },
+        { "path": "experiments/generated-interaction/bridge-bp-rm032/protocol.md", "line": 19, "end_line": 25, "label": "Disjoint bridge support" }
+      ]
+    },
+    {
+      "id": "bridge_infer", "lane": "bridge", "col": 2,
+      "type": "backend", "label": "BP versus controls",
+      "sublabel": "Four sweeps; mean / local / shuffle", "tag": "CHANGE inference",
+      "sources": [{ "path": "experiments/generated-interaction/bridge-bp-rm032/bridge_context.py", "line": 64, "end_line": 147, "label": "BP and same-data controls" }]
+    },
+    {
+      "id": "bridge_score", "lane": "bridge", "col": 3,
+      "type": "messagebus", "label": "Paired success",
+      "sublabel": "Both translations; 256 paired units", "tag": "GENERATED metric",
+      "sources": [{ "path": "experiments/generated-interaction/bridge-bp-rm032/protocol.md", "line": 41, "end_line": 47, "label": "Paired metric and fixed gates" }]
+    },
+    {
+      "id": "bridge_result", "lane": "bridge", "col": 4,
+      "type": "security", "icon": "stop", "label": "BP loses to mean",
+      "sublabel": "69.92% vs 80.47%; not pose AUC", "tag": "CLOSED negative",
+      "sources": [{ "path": "experiments/generated-interaction/README.md", "line": 5, "end_line": 11, "label": "Accepted scope and outcome" }]
+    },
+    {
+      "id": "heatmap_input", "lane": "heatmap", "col": 0,
+      "type": "external", "label": "Frozen Small maps",
+      "sublabel": "Same 3×3 logits and endpoints", "tag": "KEEP weights / coordinates",
+      "sources": [
+        { "path": "experiments/uncertainty-and-pose/README.md", "line": 3, "end_line": 5, "label": "Uncertainty study scope" },
+        { "path": "experiments/uncertainty-and-pose/heatmap/study.py", "line": 729, "end_line": 738, "label": "Same outputs across controls" }
+      ]
+    },
+    {
+      "id": "heatmap_moments", "lane": "heatmap", "col": 1,
+      "type": "backend", "label": "Heatmap moments",
+      "sublabel": "Softmax → 2×2 second moments", "tag": "CHANGE uncertainty readout",
+      "sources": [{ "path": "experiments/uncertainty-and-pose/heatmap/study.py", "line": 309, "end_line": 313, "label": "Probability and moment math" }]
+    },
+    {
+      "id": "heatmap_propagate", "lane": "heatmap", "col": 2,
+      "type": "backend", "label": "Propagate both sides",
+      "sublabel": "S = C₁ + J C₀ Jᵀ", "tag": "REFERENCE H: evaluation",
+      "sources": [{ "path": "experiments/uncertainty-and-pose/heatmap/study.py", "line": 315, "end_line": 328, "label": "Homography J and propagation" }]
+    },
+    {
+      "id": "heatmap_test", "lane": "heatmap", "col": 3,
+      "type": "messagebus", "label": "Group calibration",
+      "sublabel": "Leave one group out: NLL / coverage", "tag": "VS constant / trace / shuffle",
+      "sources": [
+        { "path": "experiments/uncertainty-and-pose/heatmap/study.py", "line": 709, "end_line": 723, "label": "Fit scale then test group" },
+        { "path": "experiments/uncertainty-and-pose/heatmap/study.py", "line": 731, "end_line": 744, "label": "Controls and full denominator" }
+      ]
+    },
+    {
+      "id": "heatmap_result", "lane": "heatmap", "col": 4,
+      "type": "security", "icon": "stop", "label": "Proxy not qualified",
+      "sublabel": "20 pairs / 2,560 matches; no pose gain", "tag": "CLOSED negative",
+      "sources": [{ "path": "experiments/uncertainty-and-pose/README.md", "line": 3, "end_line": 11, "label": "Negative proxy; reading scope" }]
+    }
+  ],
+  "edges": [
+    { "id": "bridge_input_factors", "from": "bridge_input", "to": "bridge_factors", "variant": "emphasis", "role": "main" },
+    { "id": "bridge_factors_infer", "from": "bridge_factors", "to": "bridge_infer", "variant": "emphasis", "role": "main" },
+    { "id": "bridge_infer_score", "from": "bridge_infer", "to": "bridge_score", "variant": "default", "role": "main" },
+    { "id": "bridge_score_result", "from": "bridge_score", "to": "bridge_result", "variant": "security", "role": "main" },
+    { "id": "heatmap_input_moments", "from": "heatmap_input", "to": "heatmap_moments", "variant": "emphasis", "role": "main" },
+    { "id": "heatmap_moments_propagate", "from": "heatmap_moments", "to": "heatmap_propagate", "variant": "emphasis", "role": "main" },
+    { "id": "heatmap_propagate_test", "from": "heatmap_propagate", "to": "heatmap_test", "variant": "default", "role": "main" },
+    { "id": "heatmap_test_result", "from": "heatmap_test", "to": "heatmap_result", "variant": "security", "role": "main" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan", "title": "Read these as two separate studies",
+      "items": [
+        "Each row is a separate proxy workflow, not a new stage in baseline pose estimation.",
+        "No new training, pose solver, natural-image pose gain or deployment is shown."
+      ]
+    },
+    {
+      "dot": "violet", "title": "What the generated study changed",
+      "items": [
+        "New pixels between matches supply binary appearance factors; local evidence is deliberately ambiguous.",
+        "Mean expected-factor messages already use cross-match interaction. BP losing does not show that all interaction is useless.",
+        "RM029's earlier moving-patch operator also lost to its strong generated controls; this row details RM032."
+      ]
+    },
+    {
+      "dot": "amber", "title": "What the heatmap study changed",
+      "items": [
+        "It adds an uncertainty readout after the same frozen Small outputs; it does not change endpoint means or filter matches.",
+        "Homography geometry is for planar evaluation and calibration. The proposed uncertainty signal comes from the maps.",
+        "Estimated planar references and conditional sealed-output scoring do not certify physical covariance or a qualified pose method."
+      ]
+    }
+  ]
+}

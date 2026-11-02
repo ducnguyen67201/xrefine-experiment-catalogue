@@ -1,5 +1,11 @@
 # Cached pose-hypothesis medoid
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/selection-and-pose-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether consensus among whole-pose hypotheses is more reliable than taking the first hypothesis.
 
 **Construction.** A fixed three-hypothesis rotational medoid with first-tie handling is compared against FIRST and MAX-original-inlier controls on the same cached pool. RM037 independently reconstructs the saved selections, scalars and gates; no new neural/native fits are implied by the audit.

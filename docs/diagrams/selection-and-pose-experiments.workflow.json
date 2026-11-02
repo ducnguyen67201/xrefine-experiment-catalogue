@@ -1,0 +1,561 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Selection and pose experiments: what stayed and what changed",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-selection-and-pose-20261102/selection-and-pose-experiments.html",
+    "repository": {
+      "url": "https://github.com/ducnguyen67201/xrefine-experiment-catalogue.git",
+      "revision": "dda7c33627903be95a969e1463bbe458500258e3",
+      "provider": "github",
+      "link_mode": "web"
+    },
+    "legend": {
+      "mode": "auto",
+      "entries": {
+        "backend": {
+          "label": "Processing step"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "rank",
+      "label": "046\u2013048 \u00b7 Ranking and coverage variants"
+    },
+    {
+      "id": "diversity",
+      "label": "049 \u00b7 Translation-normal diversity"
+    },
+    {
+      "id": "consensus",
+      "label": "035 / 037 \u00b7 Cached pose consensus"
+    },
+    {
+      "id": "optimization",
+      "label": "Pose optimization \u00b7 HQ / pixel metric"
+    }
+  ],
+  "phases": [
+    {
+      "id": "input",
+      "label": "1 \u00b7 Existing inputs",
+      "fromCol": 0,
+      "toCol": 0
+    },
+    {
+      "id": "intervention",
+      "label": "2 \u00b7 Experiment intervention",
+      "fromCol": 1,
+      "toCol": 2
+    },
+    {
+      "id": "evaluation",
+      "label": "3 \u00b7 Evaluation and outcome",
+      "fromCol": 3,
+      "toCol": 4
+    }
+  ],
+  "mainPath": [
+    "rank_bank",
+    "rank_score",
+    "rank_select",
+    "rank_pose",
+    "rank_result"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "rank_bank",
+      "div_bank",
+      "pose_pool",
+      "opt_input"
+    ],
+    "allowedTerminals": [
+      "rank_result",
+      "div_result",
+      "pose_result",
+      "opt_result"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "rank_bank",
+      "lane": "rank",
+      "col": 0,
+      "type": "backend",
+      "label": "Same match bank",
+      "sublabel": "Raw p; refined q; features",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/verification-coverage/quality-rm048/verifier.py",
+          "line": 79,
+          "end_line": 90
+        }
+      ]
+    },
+    {
+      "id": "rank_score",
+      "lane": "rank",
+      "col": 1,
+      "type": "backend",
+      "label": "Score variants",
+      "sublabel": "Sampled / native-aligned",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/verification-coverage/ambiguity-rm046/verifier.py",
+          "line": 14,
+          "end_line": 21
+        },
+        {
+          "path": "experiments/verification-coverage/coverage-rm047/verifier.py",
+          "line": 57,
+          "end_line": 67
+        }
+      ]
+    },
+    {
+      "id": "rank_select",
+      "lane": "rank",
+      "col": 2,
+      "type": "backend",
+      "label": "Select variants",
+      "sublabel": "Top-k / cells / gated cells",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/verification-coverage/ambiguity-rm046/verifier.py",
+          "line": 80,
+          "end_line": 95
+        },
+        {
+          "path": "experiments/verification-coverage/quality-rm048/verifier.py",
+          "line": 17,
+          "end_line": 52
+        }
+      ]
+    },
+    {
+      "id": "rank_pose",
+      "lane": "rank",
+      "col": 3,
+      "type": "backend",
+      "label": "Original pose chain",
+      "sublabel": "GC + recovery; same metric",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/verification-coverage/quality-rm048/PROTOCOL.md",
+          "line": 13
+        },
+        {
+          "path": "experiments/verification-coverage/quality-rm048/PROTOCOL.md",
+          "line": 32,
+          "end_line": 36
+        }
+      ]
+    },
+    {
+      "id": "rank_result",
+      "lane": "rank",
+      "col": 4,
+      "type": "backend",
+      "label": "Pilot gates failed",
+      "sublabel": "048 gain lost scene/control",
+      "tag": "RESULT",
+      "icon": "failure",
+      "sources": [
+        {
+          "path": "experiments/verification-coverage/README.md",
+          "line": 7,
+          "end_line": 13
+        }
+      ]
+    },
+    {
+      "id": "div_bank",
+      "lane": "diversity",
+      "col": 0,
+      "type": "backend",
+      "label": "Same refined q",
+      "sublabel": "Coordinates and row IDs",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/translation-diversity/rm049/verifier.py",
+          "line": 94,
+          "end_line": 101
+        },
+        {
+          "path": "experiments/translation-diversity/rm049/verifier.py",
+          "line": 178,
+          "end_line": 183
+        }
+      ]
+    },
+    {
+      "id": "div_prepass",
+      "lane": "diversity",
+      "col": 1,
+      "type": "backend",
+      "label": "GT-free prepasses",
+      "sublabel": "Full / even / odd fits",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/translation-diversity/README.md",
+          "line": 5
+        },
+        {
+          "path": "experiments/translation-diversity/rm049/verifier.py",
+          "line": 102,
+          "end_line": 116
+        }
+      ]
+    },
+    {
+      "id": "div_select",
+      "lane": "diversity",
+      "col": 2,
+      "type": "backend",
+      "label": "Diversity + fallback",
+      "sublabel": "Reliable: subset; else all q",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/translation-diversity/rm049/verifier.py",
+          "line": 125,
+          "end_line": 134
+        },
+        {
+          "path": "experiments/translation-diversity/rm049/verifier.py",
+          "line": 155,
+          "end_line": 185
+        }
+      ]
+    },
+    {
+      "id": "div_pose",
+      "lane": "diversity",
+      "col": 3,
+      "type": "backend",
+      "label": "Original pose chain",
+      "sublabel": "Same solver and metrics",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/translation-diversity/README.md",
+          "line": 5
+        },
+        {
+          "path": "experiments/translation-diversity/rm049/PROTOCOL.md",
+          "line": 9,
+          "end_line": 13
+        }
+      ]
+    },
+    {
+      "id": "div_result",
+      "lane": "diversity",
+      "col": 4,
+      "type": "backend",
+      "label": "Pilot negative",
+      "sublabel": "52.08 to 50.83 AUC5",
+      "tag": "RESULT",
+      "icon": "failure",
+      "sources": [
+        {
+          "path": "experiments/translation-diversity/README.md",
+          "line": 7,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "pose_pool",
+      "lane": "consensus",
+      "col": 0,
+      "type": "backend",
+      "label": "Same cached pool",
+      "sublabel": "Three whole hypotheses",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/pose-consensus/rm035/PROTOCOL-035.md",
+          "line": 7,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "pose_medoid",
+      "lane": "consensus",
+      "col": 1,
+      "type": "backend",
+      "label": "Choose medoid",
+      "sublabel": "Compare FIRST and MAX",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/pose-consensus/rm035/selector_035.py",
+          "line": 96,
+          "end_line": 120
+        }
+      ]
+    },
+    {
+      "id": "pose_whole",
+      "lane": "consensus",
+      "col": 2,
+      "type": "backend",
+      "label": "Whole pose selected",
+      "sublabel": "Keep R, t, E and provenance",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/pose-consensus/rm035/selector_035.py",
+          "line": 3,
+          "end_line": 14
+        }
+      ]
+    },
+    {
+      "id": "pose_metric",
+      "lane": "consensus",
+      "col": 3,
+      "type": "backend",
+      "label": "Same scalar metrics",
+      "sublabel": "AUC; severe; saved audit",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/pose-consensus/rm035/PROTOCOL-035.md",
+          "line": 13
+        },
+        {
+          "path": "experiments/pose-consensus/README.md",
+          "line": 5,
+          "end_line": 7
+        }
+      ]
+    },
+    {
+      "id": "pose_result",
+      "lane": "consensus",
+      "col": 4,
+      "type": "backend",
+      "label": "Cached negative",
+      "sublabel": "Medoid below MAX control",
+      "tag": "RESULT",
+      "icon": "failure",
+      "sources": [
+        {
+          "path": "experiments/pose-consensus/README.md",
+          "line": 7,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "opt_input",
+      "lane": "optimization",
+      "col": 0,
+      "type": "backend",
+      "label": "Same q + pose seed",
+      "sublabel": "Original coordinates / mask",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "experiments/uncertainty-and-pose/hq/candidate.py",
+          "line": 56,
+          "end_line": 72
+        },
+        {
+          "path": "experiments/uncertainty-and-pose/pixel-metric/candidate.py",
+          "line": 157,
+          "end_line": 180
+        }
+      ]
+    },
+    {
+      "id": "opt_update",
+      "lane": "optimization",
+      "col": 1,
+      "type": "backend",
+      "label": "Pose-update variants",
+      "sublabel": "HQ / pixel-Sampson steps",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/uncertainty-and-pose/hq/candidate.py",
+          "line": 145,
+          "end_line": 159
+        },
+        {
+          "path": "experiments/uncertainty-and-pose/pixel-metric/candidate.py",
+          "line": 186,
+          "end_line": 199
+        }
+      ]
+    },
+    {
+      "id": "opt_output",
+      "lane": "optimization",
+      "col": 2,
+      "type": "backend",
+      "label": "Updated R and t",
+      "sublabel": "Coordinates q stay fixed",
+      "tag": "CHANGE",
+      "sources": [
+        {
+          "path": "experiments/uncertainty-and-pose/hq/candidate.py",
+          "line": 321,
+          "end_line": 333
+        },
+        {
+          "path": "experiments/uncertainty-and-pose/pixel-metric/candidate.py",
+          "line": 167,
+          "end_line": 172
+        }
+      ]
+    },
+    {
+      "id": "opt_metric",
+      "lane": "optimization",
+      "col": 3,
+      "type": "backend",
+      "label": "Check pose errors",
+      "sublabel": "Engineering smoke scope",
+      "tag": "KEEP METRIC",
+      "sources": [
+        {
+          "path": "experiments/uncertainty-and-pose/README.md",
+          "line": 9,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "opt_result",
+      "lane": "optimization",
+      "col": 4,
+      "type": "backend",
+      "label": "Full run not done",
+      "sublabel": "Resource admission blocked",
+      "tag": "RESULT",
+      "icon": "neutral",
+      "sources": [
+        {
+          "path": "experiments/uncertainty-and-pose/README.md",
+          "line": 9,
+          "end_line": 11
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "rank_bank_to_rank_score",
+      "from": "rank_bank",
+      "to": "rank_score"
+    },
+    {
+      "id": "rank_score_to_rank_select",
+      "from": "rank_score",
+      "to": "rank_select"
+    },
+    {
+      "id": "rank_select_to_rank_pose",
+      "from": "rank_select",
+      "to": "rank_pose"
+    },
+    {
+      "id": "rank_pose_to_rank_result",
+      "from": "rank_pose",
+      "to": "rank_result"
+    },
+    {
+      "id": "div_bank_to_div_prepass",
+      "from": "div_bank",
+      "to": "div_prepass"
+    },
+    {
+      "id": "div_prepass_to_div_select",
+      "from": "div_prepass",
+      "to": "div_select"
+    },
+    {
+      "id": "div_select_to_div_pose",
+      "from": "div_select",
+      "to": "div_pose"
+    },
+    {
+      "id": "div_pose_to_div_result",
+      "from": "div_pose",
+      "to": "div_result"
+    },
+    {
+      "id": "pose_pool_to_pose_medoid",
+      "from": "pose_pool",
+      "to": "pose_medoid"
+    },
+    {
+      "id": "pose_medoid_to_pose_whole",
+      "from": "pose_medoid",
+      "to": "pose_whole"
+    },
+    {
+      "id": "pose_whole_to_pose_metric",
+      "from": "pose_whole",
+      "to": "pose_metric"
+    },
+    {
+      "id": "pose_metric_to_pose_result",
+      "from": "pose_metric",
+      "to": "pose_result"
+    },
+    {
+      "id": "opt_input_to_opt_update",
+      "from": "opt_input",
+      "to": "opt_update"
+    },
+    {
+      "id": "opt_update_to_opt_output",
+      "from": "opt_update",
+      "to": "opt_output"
+    },
+    {
+      "id": "opt_output_to_opt_metric",
+      "from": "opt_output",
+      "to": "opt_metric"
+    },
+    {
+      "id": "opt_metric_to_opt_result",
+      "from": "opt_metric",
+      "to": "opt_result"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "slate",
+      "title": "How to read this",
+      "items": [
+        "Four independent historical experiment lanes, not one combined or deployed method.",
+        "KEEP retains the baseline stage. CHANGE marks the tested intervention. p = raw endpoints; q = frozen Small refinements."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Evidence limits",
+      "items": [
+        "046, 047 and 048 are separate score/selection variants; 048's positive mean failed scene, draw and control requirements.",
+        "049 selected on 9/32 pairs; 23 fell back. Lower severe counts on unchanged inputs are not demonstrated method gains.",
+        "035 uses cached ScanNet poses; pose-update variants reached engineering smoke only. Neither is a new full MegaDepth gain."
+      ]
+    }
+  ]
+}

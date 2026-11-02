@@ -1,0 +1,512 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Where coordinate experiments changed XRefine",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-coordinate-experiments-20261102/coordinate-experiments.html",
+    "repository": {
+      "url": "https://github.com/ducnguyen67201/xrefine-experiment-catalogue.git",
+      "revision": "dda7c33627903be95a969e1463bbe458500258e3",
+      "provider": "github",
+      "link_mode": "web"
+    },
+    "legend": {
+      "mode": "auto",
+      "entries": {
+        "backend": {
+          "label": "Processing step"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "benefit",
+      "label": "Benefit / endpoint actions \u2014 separate rules"
+    },
+    {
+      "id": "multiview",
+      "label": "Multi-view consensus \u2014 other partner images"
+    },
+    {
+      "id": "recrop",
+      "label": "Local response consensus \u2014 RM051"
+    }
+  ],
+  "mainPath": [
+    "benefit_input",
+    "benefit_action",
+    "benefit_rows",
+    "benefit_pose",
+    "benefit_result"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "benefit_input",
+      "multi_input",
+      "recrop_input"
+    ],
+    "allowedTerminals": [
+      "benefit_result",
+      "risk_stop",
+      "multi_result",
+      "recrop_result"
+    ],
+    "requiredPaths": [
+      {
+        "from": "benefit_action",
+        "to": "benefit_pose"
+      },
+      {
+        "from": "risk_features",
+        "to": "risk_stop"
+      },
+      {
+        "from": "multi_votes",
+        "to": "multi_result"
+      },
+      {
+        "from": "recrop_responses",
+        "to": "recrop_result"
+      }
+    ]
+  },
+  "nodes": [
+    {
+      "id": "benefit_input",
+      "lane": "benefit",
+      "col": 0,
+      "type": "backend",
+      "label": "1. Same p and q",
+      "sublabel": "raw p; frozen Small q",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/whole-pair/protocol.md",
+          "line": 18,
+          "end_line": 32
+        }
+      ],
+      "yOffset": -60
+    },
+    {
+      "id": "benefit_action",
+      "lane": "benefit",
+      "col": 1,
+      "type": "backend",
+      "label": "2. Endpoint rule",
+      "sublabel": "whole-pair p/q; or p0,q1",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/whole-pair/joint_utility_core.py",
+          "line": 270,
+          "end_line": 283
+        },
+        {
+          "path": "experiments/refinement-benefit/fixed-source/plugbench_fixed_source.py",
+          "line": 11,
+          "end_line": 19
+        }
+      ],
+      "yOffset": -60
+    },
+    {
+      "id": "benefit_rows",
+      "lane": "benefit",
+      "col": 2,
+      "type": "backend",
+      "label": "3. Keep all rows",
+      "sublabel": "same IDs and pairing",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/whole-pair/protocol.md",
+          "line": 28,
+          "end_line": 32
+        }
+      ],
+      "yOffset": -60
+    },
+    {
+      "id": "benefit_pose",
+      "lane": "benefit",
+      "col": 3,
+      "type": "backend",
+      "label": "4. Pose and AUC",
+      "sublabel": "same GC + recovery + metrics",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/whole-pair/protocol.md",
+          "line": 111,
+          "end_line": 122
+        }
+      ],
+      "yOffset": -60
+    },
+    {
+      "id": "benefit_result",
+      "lane": "benefit",
+      "col": 4,
+      "type": "backend",
+      "label": "Full negatives",
+      "sublabel": "gate -0.20; fixed-source -5.48",
+      "tag": "RESULT",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/README.md",
+          "line": 5,
+          "end_line": 11
+        }
+      ],
+      "yOffset": -60
+    },
+    {
+      "id": "risk_features",
+      "lane": "benefit",
+      "col": 1,
+      "type": "backend",
+      "label": "RM050 features",
+      "sublabel": "own-match tensors + q-p",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/per-match-rm050/PROTOCOL.md",
+          "line": 7,
+          "end_line": 11
+        }
+      ],
+      "yOffset": 60
+    },
+    {
+      "id": "risk_screen",
+      "lane": "benefit",
+      "col": 2,
+      "type": "backend",
+      "label": "Four-action risk",
+      "sublabel": "QQ / PP / PQ / QP; weak target",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/per-match-rm050/PROTOCOL.md",
+          "line": 9,
+          "end_line": 13
+        }
+      ],
+      "yOffset": 60
+    },
+    {
+      "id": "risk_stop",
+      "lane": "benefit",
+      "col": 3,
+      "type": "backend",
+      "label": "Stop before pose",
+      "sublabel": "held-room weak-risk screen failed",
+      "tag": "PROXY ONLY",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/refinement-benefit/README.md",
+          "line": 9,
+          "end_line": 11
+        }
+      ],
+      "yOffset": 60
+    },
+    {
+      "id": "multi_input",
+      "lane": "multiview",
+      "col": 0,
+      "type": "backend",
+      "label": "1. Same q and IDs",
+      "sublabel": "same keypoint across partners",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/multi-view/protocol.md",
+          "line": 39,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "id": "multi_votes",
+      "lane": "multiview",
+      "col": 1,
+      "type": "backend",
+      "label": "2. Other-view votes",
+      "sublabel": "join exact IDs; exclude current pair",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/multi-view/multiview_consensus_core.py",
+          "line": 248,
+          "end_line": 273
+        }
+      ]
+    },
+    {
+      "id": "multi_consensus",
+      "lane": "multiview",
+      "col": 2,
+      "type": "backend",
+      "label": "3. Robust consensus",
+      "sublabel": "anchored Huber; fallback to q",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/multi-view/multiview_consensus_core.py",
+          "line": 276,
+          "end_line": 304
+        },
+        {
+          "path": "experiments/multi-view/multiview_consensus_core.py",
+          "line": 333,
+          "end_line": 346
+        }
+      ]
+    },
+    {
+      "id": "multi_pose",
+      "lane": "multiview",
+      "col": 3,
+      "type": "backend",
+      "label": "4. Pose and AUC",
+      "sublabel": "same GC + recovery + metrics",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/multi-view/protocol.md",
+          "line": 104,
+          "end_line": 112
+        }
+      ]
+    },
+    {
+      "id": "multi_result",
+      "lane": "multiview",
+      "col": 4,
+      "type": "backend",
+      "label": "Full negative",
+      "sublabel": "48.39 -> 47.93 AUC5",
+      "tag": "RESULT",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/multi-view/README.md",
+          "line": 5,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "recrop_input",
+      "lane": "recrop",
+      "col": 0,
+      "type": "backend",
+      "label": "1. Same p and Small",
+      "sublabel": "same matches; frozen checkpoint",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/recrop-consensus/response-rm051/PROTOCOL.md",
+          "line": 5,
+          "end_line": 7
+        }
+      ]
+    },
+    {
+      "id": "recrop_responses",
+      "lane": "recrop",
+      "col": 1,
+      "type": "backend",
+      "label": "2. Extra responses",
+      "sublabel": "baseline + eight 1-pixel recrops",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/recrop-consensus/response-rm051/worker051.py",
+          "line": 23,
+          "end_line": 28
+        },
+        {
+          "path": "experiments/recrop-consensus/response-rm051/PROTOCOL.md",
+          "line": 7,
+          "end_line": 9
+        }
+      ]
+    },
+    {
+      "id": "recrop_choice",
+      "lane": "recrop",
+      "col": 2,
+      "type": "backend",
+      "label": "3. Joint medoid",
+      "sublabel": "need 5/9 support; else exact q",
+      "tag": "CHANGE",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/recrop-consensus/response-rm051/consensus051.py",
+          "line": 79,
+          "end_line": 87
+        },
+        {
+          "path": "experiments/recrop-consensus/response-rm051/consensus051.py",
+          "line": 97,
+          "end_line": 116
+        }
+      ]
+    },
+    {
+      "id": "recrop_pose",
+      "lane": "recrop",
+      "col": 3,
+      "type": "backend",
+      "label": "4. Pose and AUC",
+      "sublabel": "same GC + recovery + metrics",
+      "tag": "KEEP",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/recrop-consensus/response-rm051/PROTOCOL.md",
+          "line": 11,
+          "end_line": 13
+        }
+      ]
+    },
+    {
+      "id": "recrop_result",
+      "lane": "recrop",
+      "col": 4,
+      "type": "backend",
+      "label": "Pilot negative",
+      "sublabel": "51.80 -> 51.67 AUC5",
+      "tag": "RESULT",
+      "icon": "none",
+      "sources": [
+        {
+          "path": "experiments/recrop-consensus/README.md",
+          "line": 5,
+          "end_line": 11
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "benefit_input-to-benefit_action",
+      "from": "benefit_input",
+      "to": "benefit_action"
+    },
+    {
+      "id": "benefit_action-to-benefit_rows",
+      "from": "benefit_action",
+      "to": "benefit_rows"
+    },
+    {
+      "id": "benefit_rows-to-benefit_pose",
+      "from": "benefit_rows",
+      "to": "benefit_pose"
+    },
+    {
+      "id": "benefit_pose-to-benefit_result",
+      "from": "benefit_pose",
+      "to": "benefit_result"
+    },
+    {
+      "id": "multi_input-to-multi_votes",
+      "from": "multi_input",
+      "to": "multi_votes"
+    },
+    {
+      "id": "multi_votes-to-multi_consensus",
+      "from": "multi_votes",
+      "to": "multi_consensus"
+    },
+    {
+      "id": "multi_consensus-to-multi_pose",
+      "from": "multi_consensus",
+      "to": "multi_pose"
+    },
+    {
+      "id": "multi_pose-to-multi_result",
+      "from": "multi_pose",
+      "to": "multi_result"
+    },
+    {
+      "id": "recrop_input-to-recrop_responses",
+      "from": "recrop_input",
+      "to": "recrop_responses"
+    },
+    {
+      "id": "recrop_responses-to-recrop_choice",
+      "from": "recrop_responses",
+      "to": "recrop_choice"
+    },
+    {
+      "id": "recrop_choice-to-recrop_pose",
+      "from": "recrop_choice",
+      "to": "recrop_pose"
+    },
+    {
+      "id": "recrop_pose-to-recrop_result",
+      "from": "recrop_pose",
+      "to": "recrop_result"
+    },
+    {
+      "id": "benefit_input-to-risk_features",
+      "from": "benefit_input",
+      "to": "risk_features",
+      "role": "branch"
+    },
+    {
+      "id": "risk_features-to-risk_screen",
+      "from": "risk_features",
+      "to": "risk_screen",
+      "role": "branch"
+    },
+    {
+      "id": "risk_screen-to-risk_stop",
+      "from": "risk_screen",
+      "to": "risk_stop",
+      "role": "branch"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Read each lane separately",
+      "items": [
+        "Past experiments, not one combined pipeline or a proposed deployment.",
+        "p = raw acquired endpoints; q = baseline Small-refined endpoints.",
+        "KEEP = retained stage within that study; CHANGE = the tested intervention."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Do not mix evidence levels",
+      "items": [
+        "Whole-pair/fixed-source and multi-view reached full comparisons.",
+        "RM050 failed its weak-risk screen before any pose pilot.",
+        "Earlier recentering improved identity-warp capture but failed stability; RM051 also failed its real pose pilot."
+      ]
+    }
+  ]
+}

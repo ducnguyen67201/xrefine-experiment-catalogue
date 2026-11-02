@@ -6,6 +6,8 @@ Handpicked research Python and short explanations for Professor review, prepared
 
 ## Read by technique
 
+Start with the [step-by-step visual guide](docs/diagrams/README.md): the original XRefine flow, the stages each experiment keeps, and the block it changes.
+
 | Technique | What was tried |
 |---|---|
 | [Cross-match context](experiments/cross-match/README.md) | Neighbor means and learned attention, with independent and shuffled controls |

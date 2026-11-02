@@ -1,5 +1,11 @@
 # Cross-match context: mean and learned attention
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/baseline-vs-crossmatch-print.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether information from other matches helps refine the current match.
 
 **Construction.** RM042 averages features from eight spatial neighbors, then applies a learned FiLM modulation before the frozen Small decoder. RM045 replaces that average with four-head attention. Within each study, independent and relationship-shuffled heads match capacity, initialization and training settings. Training used 150 ScanNet FIT pairs for 20 epochs. The decoder and acquired correspondences stayed fixed.

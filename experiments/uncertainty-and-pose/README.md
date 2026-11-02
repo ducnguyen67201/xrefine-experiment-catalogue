@@ -1,5 +1,11 @@
 # Uncertainty-aware refinement and pose updates
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/proxy-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I explored localization uncertainty and downstream pose optimization as separate questions.
 
 **Heatmap uncertainty.** The exact historical `heatmap/study.py` estimates second moments of Small's3×3 score maps, propagates endpoint covariance and checks calibration. The completed HPatches20-pair/2560-match planar proxy failed shape/coverage controls. This is not a real-pose accuracy gain. Scientific entry points include `shapes`, `project`, `propagate`, `quadratic`, `model_actor`, `summarized` and `scalar_audit`.

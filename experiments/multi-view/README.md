@@ -1,5 +1,11 @@
 # Multi-view coordinate consensus
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/coordinate-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether the same keypoint's refinements from different partner images can correct each other.
 
 **Construction.** Preparation joins the original keypoint identities and partner-view contexts. Mean, shrinkage, anchored Huber consensus and relationship-shuffled controls combine the saved coordinate evidence while preserving source rows and the evaluation pipeline.

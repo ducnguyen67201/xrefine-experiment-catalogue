@@ -1,5 +1,11 @@
 # Recropping and local response consensus
 
+## Where this changes the pipeline
+
+![Step diagram showing the retained inputs and the changed block](../../docs/diagrams/coordinate-experiments.svg)
+
+[Full visual guide and scope](../../docs/diagrams/README.md). Each lane is a separate experiment.
+
 I tested whether another observation around a refined position improves the refinement.
 
 **Capture diagnostic (19 October).** The same frozen11×11 Small model runs again after recentering at its first outputs. Raw, one-pass, repeated-original, extrapolation and phase controls separate extra compute and rounding effects. In2048 controlled identity-warp cases, mean alignment error fell0.433→0.109px, but already-aligned anchors moved too far and the fixed stability gate failed. This was not a camera-pose improvement.
