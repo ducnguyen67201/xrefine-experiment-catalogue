@@ -1,6 +1,6 @@
 # Three proposed methods to improve XRefine
 
-**Research hypotheses, not established improvements or original contributions.** Accepted full MegaDepth best remains55.03757AUC5. These are alternatives to test separately, not components already combined or deployed. Geometry-checked actions are under evaluation; the other two are unimplemented directions. Their numerical settings, label rules and training configurations are not selected here.
+**Research candidates, not established full-panel gains or original contributions.** Accepted full MegaDepth best remains55.03757AUC5. These are alternatives to test separately, not components already combined or deployed. Geometry-checked actions have qualified in the exposed pilot and are undergoing full evaluation; the other two are unimplemented directions. Their numerical settings, label rules and training configurations are not selected here.
 
 ## 1. Geometry-checked endpoint actions — training-free
 
@@ -10,7 +10,7 @@
 
 **Hypothesis:** fit-excluded geometric context can identify harmful moves better than appearance-only neighbor aggregation. Unlike RM049, this changes endpoint actions rather than removing rows. Cross-fitting, epipolar compatibility and benefit gating are established ideas; wrong coherent geometry can still select wrong actions. Three prepasses add computation.
 
-**First test:** compare baseline, full-fit geometry, action-count-preserving shuffle, raw and halfway controls in the fixed matched32-pair × ten-draw pilot. The pilot is under evaluation; no improvement is established. [Detailed frozen proposal and source-backed diagram](crossfold-endpoint-actions.md).
+**First test:** compare baseline, full-fit geometry, action-count-preserving shuffle, raw and halfway controls in the fixed matched32-pair × ten-draw pilot. The saved independent pilot audit returned QUALIFIED_FOR_FULL on the exposed32-pair panel. The full evaluation is underway; a full-panel or independent gain is not yet established. [Detailed frozen proposal and source-backed diagram](crossfold-endpoint-actions.md).
 
 ## 2. Adaptive wider-patch evidence — change the available information
 
@@ -33,6 +33,10 @@
 **First test:** audit calibration, depth alignment, occlusion, discontinuities, label coverage and image/room-disjoint membership before any training. Depth/pose reprojection is noisy and can miss joint co-drift or repeated-structure identity errors; missing/occluded references stay unknown labels. Preserve prior failed depth qualifications rather than reusing only passing subsets. Suitable labels are not yet qualified: if they cannot be established, this candidate is unavailable. First establish stable held-room action headroom; then compare raw, always-Small, displacement-only and matched-capacity independent/shuffled controls.
 
 ## Priority and common qualification
+
+![Three separate candidate workflows distinguish fit-excluded geometry, new outer-patch evidence and training-only reprojection labels; no reference truth is used at runtime](research-candidates.svg)
+
+[Full-size candidate diagram](research-candidates.svg) · [Editable workflow](research-candidates.workflow.json). This proposal diagram cites this Markdown at revision022cf6d9; automated Archify validation, delivery, provenance and browser checks passed. It documents ideas, not scientific results.
 
 Finish candidate1's frozen test first. Candidates2/3 are alternatives, not simultaneous launches. Any selected new rule must be frozen away from the pose pilot. Full1500×10 and independent confirmation follow only after fixed accuracy, control, scene/draw and severe-tail gates pass. Report active/fallback coverage and extra compute; do not promote a favorable control or retune a valid negative.
 

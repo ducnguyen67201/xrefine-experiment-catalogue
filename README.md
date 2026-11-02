@@ -24,6 +24,8 @@ Start with the [step-by-step visual guide](docs/diagrams/README.md): the origina
 
 ## What the files represent
 
+For future work, see [three proposed methods](docs/proposals/README.md): geometry-checked endpoint actions, wider auxiliary image evidence and visibility-qualified reprojection-benefit supervision. These are research candidates; this collection does not claim validated gains or novelty for them.
+
 The copied files retain their original bytes. Each technique page explains the hypothesis, construction, controls, outcome and evidence level. `PROVENANCE.json` records source locations, archived versions or freeze evidence, exact sizes and SHA256 hashes. Saved executed archives are used where prototypes were subsequently reverted. Historical comments such as "SOURCE ONLY" are preserved; the technique page describes any later evaluation.
 
 This is a source-reading catalogue, not a self-contained training or benchmark package. Historical entry points retain original imports, data paths and execution-state assumptions. Data, weights, native binaries, run state and the complete original pipeline are not bundled. Use the small method modules to inspect the ideas; original drivers require their qualified environment and a new output namespace. No original experiment was rerun to assemble this repository.
