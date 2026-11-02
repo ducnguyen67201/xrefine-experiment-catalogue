@@ -1,21 +1,41 @@
-# Proposed method: geometry-checked refinement
+# Three proposed methods to improve XRefine
 
-**Proposal, not an accuracy result.** Prepared source is under engineering qualification; no RM053 pose gain or original contribution is established. The accepted full score remains55.03757 AUC5.
+**Research hypotheses, not established improvements or original contributions.** Accepted full MegaDepth best remains55.03757AUC5. These are alternatives to test separately, not components already combined or deployed. Geometry-checked actions are under evaluation; the other two are unimplemented directions. Their numerical settings, label rules and training configurations are not selected here.
 
-Keep the same acquired matches and frozen Small outputs. Split matches by original row-ID parity. For each row, use geometry fitted on the other group to choose both refined endpoints, both raw endpoints or either mixed pair. Rank the four existing endpoint actions by processed-pixel Sampson residual, preferring normal Small output on a tie. Preserve every row and original coordinate values. If either supplying fold is unsupported, use the normal both-refined whole-pair fallback. No ground truth or learning is used to choose test-time actions.
+## 1. Geometry-checked endpoint actions — training-free
 
-This tests whether fit-excluded geometric context can reject harmful movements better than appearance-only neighbor mixing. RM049 used related crossfold geometry to select a subset of rows; this proposal instead changes endpoint actions while retaining all matches. Fit exclusion is not statistical independence, and geometrically coherent incorrect matches can still fool the rule. The three full/even/odd prepasses add computation.
+**Keep:** original acquired p, frozen Small outputs q, every original row and the final pose/evaluation pipeline.
 
-Compare unchanged XRefine, the same action rule using full-fit geometry, count-preserving shuffled actions applied to each row's own endpoints, all-raw and halfway coordinates. The frozen32-pair × ten-draw pilot must beat the baseline by at least0.5AUC5, beat all four action controls, improve both scenes and at least8/10global draws, and avoid increased failures or severe errors. Only a qualified pilot can proceed to a separately forecast full evaluation and independent confirmation.
+**Change:** fit geometry on two fixed original-ID groups. Score each row's four existing endpoint actions against the opposite group's geometry, selecting both refined, both raw or either mixed pair. Unsupported fold geometry uses exact Small fallback. Ground truth is not a decision input.
 
-Originality is unestablished. Adaptive refinement gating is related prior art, including [ArgMatch, ICCV2025](https://openaccess.thecvf.com/content/ICCV2025/html/Deng_ArgMatch_Adaptive_Refinement_Gathering_for_Efficient_Dense_Matching_ICCV_2025_paper.html); this is not a claim to have invented gating or cross-fitting.
+**Hypothesis:** fit-excluded geometric context can identify harmful moves better than appearance-only neighbor aggregation. Unlike RM049, this changes endpoint actions rather than removing rows. Cross-fitting, epipolar compatibility and benefit gating are established ideas; wrong coherent geometry can still select wrong actions. Three prepasses add computation.
 
-## Existing proposed-pipeline drawing
+**First test:** compare baseline, full-fit geometry, action-count-preserving shuffle, raw and halfway controls in the fixed matched32-pair × ten-draw pilot. The pilot is under evaluation; no improvement is established. [Detailed frozen proposal and source-backed diagram](crossfold-endpoint-actions.md).
 
-![Proposed crossfold endpoint-action pipeline, with existing components and proposed action selection distinguished; score truth is read only after outputs are sealed](crossfold-endpoint-actions.svg)
+## 2. Adaptive wider-patch evidence — change the available information
 
-[Full-size diagram](crossfold-endpoint-actions.svg) · [Editable Archify source](crossfold-endpoint-actions.json) · [Exact copied-source provenance](source-provenance.json).
+**Keep:** the original11x11 frozen Small path and acquired match identities. Do not pass wider tensors into its existing checkpoint.
 
-The source-backed Archify architecture was drawn and passed automated validation/delivery/check/browser checks before scientific implementation. Its citations identify existing pipeline seams; proposed behavior is not evidence of implementation or accuracy. The SVG and JSON here are exact copies from the authoring worktree, separate from the evaluated experiment catalogue.
+**Change:** add a separate auxiliary branch that observes a wider patch or outer ring around the same correspondence. Use that extra evidence to decide when to trust Small's coordinate rather than the raw endpoint. This requires separately qualified source and weights if selected; no larger-checkpoint compatibility is assumed.
+
+**Hypothesis:** repeated textures may look identical within small patches but differ in their surroundings. This adds pixels rather than repeating RM051's11x11 recrops. Wider support can also mix surfaces or occlusions, so a gain is uncertain.
+
+**First test:** freeze off-pilot ambiguity cases and test whether outer evidence adds information beyond central-only, shuffled outer evidence and equal-compute controls. A positive generated diagnostic is only headroom, not pose gain. A later learned branch must use matched-capacity controls and a frozen fitting/development protocol before a real pose pilot. Patch size and gating rule remain unselected.
+
+## 3. Visibility-qualified reprojection-benefit supervision — change the target
+
+**Keep:** original Small features/coordinates and the same acquired match population and final pose pipeline.
+
+**Change:** use verified training-only calibrated RGB-D pairs to derive visibility-qualified reprojection references. Label whether each existing raw/refined endpoint action improves reprojection consistency, then train a small separate action head using runtime features. Depth and reference poses are never deployment inputs.
+
+**Hypothesis:** audited reprojection labels may address the along-epipolar ambiguity left by RM050's weak Sampson-risk target. This differs from RM052's first-order pose-loss oracle, which failed its controls. Better reprojection consistency does not guarantee physical localization or pose utility.
+
+**First test:** audit calibration, depth alignment, occlusion, discontinuities, label coverage and image/room-disjoint membership before any training. Depth/pose reprojection is noisy and can miss joint co-drift or repeated-structure identity errors; missing/occluded references stay unknown labels. Preserve prior failed depth qualifications rather than reusing only passing subsets. Suitable labels are not yet qualified: if they cannot be established, this candidate is unavailable. First establish stable held-room action headroom; then compare raw, always-Small, displacement-only and matched-capacity independent/shuffled controls.
+
+## Priority and common qualification
+
+Finish candidate1's frozen test first. Candidates2/3 are alternatives, not simultaneous launches. Any selected new rule must be frozen away from the pose pilot. Full1500×10 and independent confirmation follow only after fixed accuracy, control, scene/draw and severe-tail gates pass. Report active/fallback coverage and extra compute; do not promote a favorable control or retune a valid negative.
+
+Related primary work includes [ArgMatch](https://openaccess.thecvf.com/content/ICCV2025/html/Deng_ArgMatch_Adaptive_Refinement_Gathering_for_Efficient_Dense_Matching_ICCV_2025_paper.html) on adaptive refinement gating, [Patch2Pix](https://openaccess.thecvf.com/content/CVPR2021/html/Zhou_Patch2Pix_Epipolar-Guided_Pixel-Level_Correspondences_CVPR_2021_paper.html) on patch refinement, and [LoFTR supervision](https://zju3dv.github.io/loftr/files/LoFTR-suppmat.pdf) on depth/pose-based matching labels. These are starting comparisons, not an exhaustive novelty review.
 
 [Back to catalogue](../../README.md).
