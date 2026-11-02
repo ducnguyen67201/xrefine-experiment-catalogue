@@ -1,0 +1,342 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Three XRefine research candidates: retained and changed steps",
+    "locale": "en",
+    "quality_profile": "showcase",
+    "output": ".archify/workflow-research-candidates-20261102/research-candidates.html",
+    "repository": {
+      "url": "https://github.com/ducnguyen67201/xrefine-experiment-catalogue.git",
+      "revision": "a637af57c48376c0b54cc38fbc97ec45c15cc227",
+      "provider": "github",
+      "link_mode": "web"
+    },
+    "legend": {
+      "entries": {
+        "backend": {
+          "label": "Research processing step"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "geometry",
+      "label": "1  Geometry-checked endpoint actions \u2014 under test, not validated"
+    },
+    {
+      "id": "wider",
+      "label": "2  Wider auxiliary context \u2014 unimplemented alternative"
+    },
+    {
+      "id": "supervision",
+      "label": "3  Reprojection-benefit supervision \u2014 unqualified TRAIN labels"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "geo_inputs",
+      "lane": "geometry",
+      "col": 0,
+      "type": "backend",
+      "icon": "none",
+      "label": "1. Same matches + Small",
+      "sublabel": "p = raw; q = refined",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 7,
+          "end_line": 9
+        }
+      ]
+    },
+    {
+      "id": "geo_context",
+      "lane": "geometry",
+      "col": 1,
+      "type": "backend",
+      "icon": "none",
+      "label": "2. Proposed cross-fit",
+      "sublabel": "opposite fixed-ID group",
+      "tag": "UNDER TEST",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 9,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "geo_actions",
+      "lane": "geometry",
+      "col": 2,
+      "type": "backend",
+      "icon": "none",
+      "label": "3. Proposed p/q choice",
+      "sublabel": "four actions; fallback q",
+      "tag": "UNDER TEST",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 9,
+          "end_line": 13
+        }
+      ]
+    },
+    {
+      "id": "geo_pose",
+      "lane": "geometry",
+      "col": 3,
+      "type": "backend",
+      "icon": "none",
+      "label": "4. Same pose + AUC",
+      "sublabel": "pilot qualified; full underway",
+      "tag": "FULL NOT CONFIRMED",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 7,
+          "end_line": 13
+        }
+      ]
+    },
+    {
+      "id": "wider_inputs",
+      "lane": "wider",
+      "col": 0,
+      "type": "backend",
+      "icon": "none",
+      "label": "1. Same frozen Small",
+      "sublabel": "keep 11x11 checkpoint path",
+      "tag": "KEEP",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 17,
+          "end_line": 19
+        }
+      ]
+    },
+    {
+      "id": "wider_context",
+      "lane": "wider",
+      "col": 1,
+      "type": "backend",
+      "icon": "none",
+      "label": "2. Proposed outer pixels",
+      "sublabel": "wider patch / outer ring",
+      "tag": "PROPOSED",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 19,
+          "end_line": 21
+        }
+      ]
+    },
+    {
+      "id": "wider_gate",
+      "lane": "wider",
+      "col": 2,
+      "type": "backend",
+      "icon": "none",
+      "label": "3. Proposed p/q gate",
+      "sublabel": "separate branch and weights",
+      "tag": "PROPOSED",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 19,
+          "end_line": 23
+        }
+      ]
+    },
+    {
+      "id": "wider_pose",
+      "lane": "wider",
+      "col": 3,
+      "type": "backend",
+      "icon": "none",
+      "label": "4. Same pose pipeline",
+      "sublabel": "central / shuffle / compute controls",
+      "tag": "KEEP / FUTURE TEST",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 17,
+          "end_line": 23
+        }
+      ]
+    },
+    {
+      "id": "label_inputs",
+      "lane": "supervision",
+      "col": 0,
+      "type": "backend",
+      "icon": "none",
+      "label": "1. Proposed TRAIN labels",
+      "sublabel": "visibility-qualified RGB-D",
+      "tag": "TRAIN ONLY",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 29,
+          "end_line": 33
+        }
+      ]
+    },
+    {
+      "id": "label_audit",
+      "lane": "supervision",
+      "col": 1,
+      "type": "backend",
+      "icon": "none",
+      "label": "2. Proposed label audit",
+      "sublabel": "room split; action headroom",
+      "tag": "BEFORE TRAINING",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 31,
+          "end_line": 33
+        }
+      ]
+    },
+    {
+      "id": "label_head",
+      "lane": "supervision",
+      "col": 2,
+      "type": "backend",
+      "icon": "none",
+      "label": "3. Proposed small head",
+      "sublabel": "fit from runtime-visible features",
+      "tag": "SEPARATE WEIGHTS",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 27,
+          "end_line": 33
+        }
+      ]
+    },
+    {
+      "id": "label_runtime",
+      "lane": "supervision",
+      "col": 3,
+      "type": "backend",
+      "icon": "none",
+      "label": "4. Proposed p/q choice",
+      "sublabel": "keep Small + pose; NEVER GT",
+      "tag": "RUNTIME FEATURES ONLY",
+      "sources": [
+        {
+          "path": "docs/proposals/README.md",
+          "line": 27,
+          "end_line": 33
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "geo_inputs-to-geo_context",
+      "from": "geo_inputs",
+      "to": "geo_context"
+    },
+    {
+      "id": "geo_context-to-geo_actions",
+      "from": "geo_context",
+      "to": "geo_actions"
+    },
+    {
+      "id": "geo_actions-to-geo_pose",
+      "from": "geo_actions",
+      "to": "geo_pose"
+    },
+    {
+      "id": "wider_inputs-to-wider_context",
+      "from": "wider_inputs",
+      "to": "wider_context"
+    },
+    {
+      "id": "wider_context-to-wider_gate",
+      "from": "wider_context",
+      "to": "wider_gate"
+    },
+    {
+      "id": "wider_gate-to-wider_pose",
+      "from": "wider_gate",
+      "to": "wider_pose"
+    },
+    {
+      "id": "label_inputs-to-label_audit",
+      "from": "label_inputs",
+      "to": "label_audit"
+    },
+    {
+      "id": "label_audit-to-label_head",
+      "from": "label_audit",
+      "to": "label_head"
+    },
+    {
+      "id": "label_head-to-label_runtime",
+      "from": "label_head",
+      "to": "label_runtime"
+    }
+  ],
+  "mainPath": [
+    "geo_inputs",
+    "geo_context",
+    "geo_actions",
+    "geo_pose"
+  ],
+  "semanticChecks": {
+    "allowedRoots": [
+      "geo_inputs",
+      "wider_inputs",
+      "label_inputs"
+    ],
+    "allowedTerminals": [
+      "geo_pose",
+      "wider_pose",
+      "label_runtime"
+    ],
+    "requiredPaths": [
+      {
+        "from": "geo_inputs",
+        "to": "geo_pose"
+      },
+      {
+        "from": "wider_inputs",
+        "to": "wider_pose"
+      },
+      {
+        "from": "label_inputs",
+        "to": "label_runtime"
+      }
+    ]
+  },
+  "cards": [
+    {
+      "dot": "amber",
+      "title": "Research status",
+      "items": [
+        "Alternatives, not one combined method. No accuracy gain or originality established.",
+        "Finish candidate 1 first. Candidates 2 and 3 are proposed, unimplemented directions.",
+        "Candidate 3 is unavailable unless calibration, visibility and labels qualify."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Keep the evaluation honest",
+      "items": [
+        "p = acquired raw endpoints; q = frozen Small endpoints. Keep original match identities.",
+        "Depth and reference poses are TRAIN-only supervision, never runtime head inputs.",
+        "Freeze off-pilot; matched controls and severe-tail gates precede full evaluation."
+      ]
+    }
+  ]
+}

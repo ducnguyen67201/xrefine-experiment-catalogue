@@ -36,7 +36,7 @@
 
 ![Three separate candidate workflows distinguish fit-excluded geometry, new outer-patch evidence and training-only reprojection labels; no reference truth is used at runtime](research-candidates.svg)
 
-[Full-size candidate diagram](research-candidates.svg) · [Editable workflow](research-candidates.workflow.json). This proposal diagram cites this Markdown at revision022cf6d9; automated Archify validation, delivery, provenance and browser checks passed. It documents ideas, not scientific results.
+[Full-size candidate diagram](research-candidates.svg) · [Editable workflow](research-candidates.workflow.json). The editable workflow records the exact pinned proposal-source revision; automated Archify validation, delivery, provenance and browser checks passed. It documents ideas, not scientific results.
 
 Finish candidate1's frozen test first. Candidates2/3 are alternatives, not simultaneous launches. Any selected new rule must be frozen away from the pose pilot. Full1500×10 and independent confirmation follow only after fixed accuracy, control, scene/draw and severe-tail gates pass. Report active/fallback coverage and extra compute; do not promote a favorable control or retune a valid negative.
 
