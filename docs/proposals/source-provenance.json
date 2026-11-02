@@ -1,0 +1,16 @@
+[
+  {
+    "file": "crossfold-endpoint-actions.svg",
+    "original_source": "worktree-51c8/docs/architecture/crossfold-endpoint-actions.svg",
+    "bytes": 190195,
+    "sha256": "e0da20a53a0151cef4cd66a97dabc84f83f4c550a11cd33796c3f68cdc6cae7c",
+    "status": "proposed; not accuracy-validated"
+  },
+  {
+    "file": "crossfold-endpoint-actions.json",
+    "original_source": "worktree-51c8/docs/architecture/crossfold-endpoint-actions.json",
+    "bytes": 13300,
+    "sha256": "d16f81fa2d55954bc72e39f74f385af712e237be341cc3b181fdceb1ea62dc7c",
+    "status": "proposed; not accuracy-validated"
+  }
+]

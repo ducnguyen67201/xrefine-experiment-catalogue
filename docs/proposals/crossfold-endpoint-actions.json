@@ -1,0 +1,489 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "RM053 proposed crossfold endpoint action selection",
+    "output": ".archify/architecture-crossfold-endpoint-actions-20261102-175708/crossfold-endpoint-actions.html",
+    "quality_profile": "showcase",
+    "locale": "en",
+    "repository": {
+      "url": "https://github.com/ducnguyen67201/slam-research.git",
+      "revision": "6ab767c8baeeffa9378c931df16b709e0fe9537d",
+      "link_mode": "local-only"
+    }
+  },
+  "components": [
+    {
+      "id": "inputs",
+      "type": "database",
+      "label": "Original MD32 inputs",
+      "sublabel": "Bank p/q, original IDs, K, images",
+      "tag": "EXISTING: 16 pairs per scene",
+      "pos": [
+        40,
+        60
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 203,
+          "end_line": 207,
+          "label": "Existing prepared source join"
+        },
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 242,
+          "end_line": 256,
+          "label": "Existing bank and pixel authentication"
+        }
+      ]
+    },
+    {
+      "id": "fresh",
+      "type": "backend",
+      "label": "Fresh frozen Small worker",
+      "sublabel": "QQ byte parity; sparse stock parity",
+      "tag": "PROPOSED: reuse existing path",
+      "pos": [
+        420,
+        60
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 218,
+          "end_line": 235,
+          "label": "Existing frozen checkpoint loading"
+        },
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 257,
+          "end_line": 267,
+          "label": "Existing fresh QQ parity"
+        },
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 327,
+          "end_line": 336,
+          "label": "Existing fresh stock parity"
+        }
+      ]
+    },
+    {
+      "id": "cacheseal",
+      "type": "security",
+      "label": "Seal every source panel",
+      "sublabel": "Fresh p/q, stock, row IDs and K",
+      "tag": "PROPOSED: parent global seal",
+      "pos": [
+        800,
+        60
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 163,
+          "end_line": 178,
+          "label": "Existing whole-panel seal verification"
+        },
+        {
+          "path": "crossmatch-042/crossmatch_042.py",
+          "line": 235,
+          "end_line": 250,
+          "label": "Existing p/q and immutable-ID schema"
+        }
+      ]
+    },
+    {
+      "id": "prepasses",
+      "type": "backend",
+      "label": "Three native QQ prepasses",
+      "sublabel": "All rows / even IDs / odd IDs",
+      "tag": "PROPOSED: 96 GC; one draw",
+      "pos": [
+        800,
+        270
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 400,
+          "end_line": 469,
+          "label": "Existing isolated native and pose stages"
+        }
+      ]
+    },
+    {
+      "id": "preseal",
+      "type": "security",
+      "label": "Seal all prepass references",
+      "sublabel": "Every E, mask and conditional pose",
+      "tag": "PROPOSED: before action choice",
+      "pos": [
+        420,
+        270
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 163,
+          "end_line": 178,
+          "label": "Existing prediction/GC/pose barriers"
+        }
+      ]
+    },
+    {
+      "id": "selector",
+      "type": "backend",
+      "label": "Choose existing endpoints",
+      "sublabel": "Other-fold pose ranks QQ/PP/PQ/QP",
+      "tag": "PROPOSED: GT-free action rule",
+      "pos": [
+        40,
+        270
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "crossmatch-042/crossmatch_042.py",
+          "line": 235,
+          "end_line": 250,
+          "label": "Existing all-row endpoint schema"
+        },
+        {
+          "path": "crossmatch-042/PROTOCOL-042.md",
+          "line": 27,
+          "end_line": 29,
+          "label": "Existing calibrated pixel Sampson math"
+        }
+      ]
+    },
+    {
+      "id": "actionseal",
+      "type": "security",
+      "label": "Seal every arm output",
+      "sublabel": "All original rows; source + controls",
+      "tag": "PROPOSED: parent global seal",
+      "pos": [
+        40,
+        480
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 163,
+          "end_line": 178,
+          "label": "Existing complete global source seals"
+        }
+      ]
+    },
+    {
+      "id": "evaluation",
+      "type": "backend",
+      "label": "Fresh native evaluation",
+      "sublabel": "GC1000 + legacy/conditional replay",
+      "tag": "REUSED: smoke8 then pilot32x10",
+      "pos": [
+        420,
+        480
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 400,
+          "end_line": 469,
+          "label": "Existing native and forced-smoke seam"
+        }
+      ]
+    },
+    {
+      "id": "poseseal",
+      "type": "security",
+      "label": "Seal all new fits and poses",
+      "sublabel": "Every method, pair and draw",
+      "tag": "PROPOSED: before score GT",
+      "pos": [
+        800,
+        480
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 163,
+          "end_line": 178,
+          "label": "Existing global pre-score barriers"
+        }
+      ]
+    },
+    {
+      "id": "score",
+      "type": "backend",
+      "label": "Score and independent audit",
+      "sublabel": "AUC5/10/20; failure180; all pairs",
+      "tag": "PROPOSED: frozen pass/fail gates",
+      "pos": [
+        800,
+        690
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 481,
+          "end_line": 504,
+          "label": "Existing directed MD score seam"
+        },
+        {
+          "path": "crossmatch-042/PROTOCOL-042.md",
+          "line": 36,
+          "end_line": 41,
+          "label": "Existing pilot and reporting principles"
+        }
+      ]
+    },
+    {
+      "id": "truth",
+      "type": "database",
+      "label": "Exposed MD score truth",
+      "sublabel": "Directed GT read only by scorer",
+      "tag": "EXISTING: no FINAL truth",
+      "pos": [
+        420,
+        690
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 481,
+          "end_line": 504,
+          "label": "Existing scorer-only MD loader binding"
+        }
+      ]
+    },
+    {
+      "id": "owner",
+      "type": "backend",
+      "label": "One local parent scheduler",
+      "sublabel": "Checkpoint, lock, receipts, closure",
+      "tag": "PROPOSED: serialized CPU workers",
+      "pos": [
+        40,
+        690
+      ],
+      "size": [
+        225,
+        78
+      ],
+      "sources": [
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 1,
+          "end_line": 5,
+          "label": "Existing parent-owned stage contract"
+        },
+        {
+          "path": "autonomous-xrefine-20261102/response051/worker051.py",
+          "line": 507,
+          "end_line": 520,
+          "label": "Existing fresh qualified phase bootstrap"
+        }
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "EXISTING LOCAL CPU HOST \u2014 no hosting or deployment change",
+      "wraps": [
+        "inputs",
+        "fresh",
+        "cacheseal",
+        "prepasses",
+        "preseal",
+        "selector",
+        "actionseal",
+        "evaluation",
+        "poseseal",
+        "score",
+        "truth",
+        "owner"
+      ],
+      "pad": 26
+    },
+    {
+      "kind": "security-group",
+      "label": "CURRENT PROPOSED GT-FREE SCOPE \u2014 no score GT, training or new acquisition",
+      "wraps": [
+        "inputs",
+        "fresh",
+        "cacheseal",
+        "prepasses",
+        "preseal",
+        "selector",
+        "actionseal",
+        "evaluation",
+        "poseseal"
+      ],
+      "pad": 14
+    }
+  ],
+  "connections": [
+    {
+      "id": "inputs-fresh",
+      "from": "inputs",
+      "to": "fresh",
+      "label": "pinned inputs",
+      "variant": "emphasis"
+    },
+    {
+      "id": "fresh-cacheseal",
+      "from": "fresh",
+      "to": "cacheseal",
+      "label": "fresh parity",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cacheseal-prepasses",
+      "from": "cacheseal",
+      "to": "prepasses",
+      "label": "sealed QQ",
+      "variant": "emphasis"
+    },
+    {
+      "id": "prepasses-preseal",
+      "from": "prepasses",
+      "to": "preseal",
+      "label": "all references",
+      "variant": "emphasis"
+    },
+    {
+      "id": "preseal-selector",
+      "from": "preseal",
+      "to": "selector",
+      "label": "only after seal",
+      "variant": "emphasis"
+    },
+    {
+      "id": "selector-actionseal",
+      "from": "selector",
+      "to": "actionseal",
+      "label": "8 fixed arms",
+      "variant": "emphasis"
+    },
+    {
+      "id": "actionseal-evaluation",
+      "from": "actionseal",
+      "to": "evaluation",
+      "label": "sealed coords",
+      "variant": "emphasis"
+    },
+    {
+      "id": "evaluation-poseseal",
+      "from": "evaluation",
+      "to": "poseseal",
+      "label": "GC + policies",
+      "variant": "emphasis"
+    },
+    {
+      "id": "poseseal-score",
+      "from": "poseseal",
+      "to": "score",
+      "label": "all sealed",
+      "variant": "security"
+    },
+    {
+      "id": "truth-score",
+      "from": "truth",
+      "to": "score",
+      "label": "score only",
+      "variant": "security"
+    },
+    {
+      "id": "owner-actionseal",
+      "from": "owner",
+      "to": "actionseal",
+      "label": "owns seals",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Fixed action rule and fallback",
+      "items": [
+        "Original row-ID parity defines folds. Fit only original QQ on each population; conditional recovered pose gives E=[unit(t)]xR and F=K1^-T E K0^-1.",
+        "Each row minimizes processed-pixel Sampson squared over actual QQ, PP, PQ, QP; baseline QQ wins ties. No new coordinates, clipping or row deletion.",
+        "Both opposite folds require N>=5 and successful finite proper pose/nonzero translation. Either unsupported fold makes C and shuffle exact whole-pair QQ. Full-fit in-sample fallback is independent."
+      ]
+    },
+    {
+      "dot": "violet",
+      "title": "Eight arms; four declared controls",
+      "items": [
+        "B, crossfold C, full-fit in-sample, action-count shuffle, raw PP, endpoint half, native STAR, sparse stock Small. All action arms retain every acquired row.",
+        "Raw PP and native STAR emit identical coordinates; stock keeps its original sparse population. Separate unseeded GC variation on equal inputs is not an action effect.",
+        "All/even/odd references are fitted once per pair and held fixed across ten final draws. Original8 smoke includes forced unscored recovery witnesses."
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Qualification and limits",
+      "items": [
+        "Original8 smoke then exposed MD32 pilot (sixteen pairs per scene). Per-panel fresh prepasses: total2744 GC before any full stage; no speed claim.",
+        "Gate: C-B>=0.5 AUC5, both scenes positive, beat all four declared controls, >=8/10 positive draws, no failure/severe rise, genuine change and complete validity.",
+        "Known geometry adaptation; novelty unestablished. Cross-fitting removes direct same-row fit inclusion, not wrong consensus or pair dependence. No FINAL, student training or accepted gain is implied."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Local ownership and source status",
+      "items": [
+        "Parent snapshots sources before checks and owns one stable heavy lock, per-panel global seals and positive process/group/FD closure. Fresh neural prepass, GC, pose, action, score and audit workers run serially.",
+        "Same local CPU host: CPU4, inclusive RSS8GiB, actual retention forecast and existing disk liabilities/floor. No cumulative-hour gate or deployment change.",
+        "Everything tagged PROPOSED is unimplemented RM053 work. Citations bind retained RM051/native and RM042 seams at the historical scientific checkpoint; they do not assert RM053 execution."
+      ]
+    }
+  ]
+}
