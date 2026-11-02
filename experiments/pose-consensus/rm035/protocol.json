@@ -1,0 +1,97 @@
+{
+  "FIRST": "ordered replica0 if eligible, otherwise explicit failure; no first-valid substitution",
+  "MAX": "largest original GC self-mask count among same eligible hypotheses; exactties first ordered",
+  "MEDOID": "argmin among eligible whole hypotheses of sum acos(clamp((trace(R_i.T R_j)-1)/2,-1,1)); symmetric pair distances; exactties first ordered",
+  "accepted_bank": "xfeat_star_xrefine",
+  "all_invalid": "all arms explicit failed selection, retained180 errors",
+  "assignment": "RM-20261026-035",
+  "attempt": "A0",
+  "barrier": "GT-freeprojector sealsBpool; predictor sees ONLY projected estimates/masks/IDs and globallyseals3000 choices/provenance; separate process reads validatedoldDEVerrors AFTERseal",
+  "base_commit": "3c4d6e6b56eadbf9c1009d7124004e13b14055ab",
+  "bootstrap": {
+    "generator": "Python3.11 random.Random.choice once per sampled physical room",
+    "percentiles": "linear .025/.975",
+    "replicates": 1000,
+    "retain": "allpairs/alldraws/duplicate room multiplicity",
+    "rooms_sorted": [
+      707,
+      708,
+      709,
+      710,
+      711,
+      712,
+      713,
+      714,
+      715,
+      716,
+      717,
+      718,
+      719,
+      720,
+      721,
+      722,
+      723,
+      724,
+      725,
+      726
+    ],
+    "same_stream_for_all_arms": true,
+    "sample_count": 20,
+    "seed": 20261008,
+    "statistic": "mean of10 per-draw AUCs thenMEDOID-control",
+    "stream_hash_serialization": "compactASCII JSON list of sampled integer room IDs plus newline"
+  },
+  "classification": "KNOWN_ENSEMBLE_STABILITY_ADAPTATION_NOVELTY_UNESTABLISHED",
+  "common_gates": {
+    "coverage_provenance_global_selection_barrier": "complete",
+    "global_failed_poses": "no increase",
+    "global_pose_errors_strict_gt90": "no increase",
+    "paired_room95_lower": ">0",
+    "strictly_positive_draw_deltas": ">=8/10"
+  },
+  "contrasts": {
+    "FIRST": {
+      "mean_auc5_delta": ">=0.5"
+    },
+    "MAX": {
+      "mean_auc5_delta": ">0"
+    }
+  },
+  "decision": "either contrast fails => REJECT_FIXED_MEDOID, no tuning/controlpromotion/retry; bothpass=>QUALIFIED_FOR_NEXT_STAGE only",
+  "draws": 10,
+  "eligibility": "qualified old scalar finite row-Gram/determinant properR at1e-5, successTrue, finite t with finite norm>2.220446049250313e-16; E/GC/source structural integrity mandatory",
+  "iteration": "RM-20261026-THREE-FIT-CONSENSUS",
+  "limits": [
+    "previouslyexposedDEVlabels",
+    "overlappingtriples10cachedfitsnot30freshfits",
+    "unknownnativeentropy/seeds/independence",
+    "selfinliersarenottruth",
+    "consistentwrongrotationclusterandtranslationdegeneracycounterexamples",
+    "noFINALdesignread",
+    "no cachednative/modelcalls or timinggainclaim"
+  ],
+  "ordered_triple": "r,(r+1)%10,(r+2)%10",
+  "pairs": 300,
+  "physical_rooms": 20,
+  "priors": [
+    "https://trumpf.id.au/pubs/Hartley_Aftab_Trumpf_CVPR2011.pdf",
+    "https://arxiv.org/abs/2004.00732"
+  ],
+  "repair_counters": {
+    "crash_repairs": 0,
+    "guard_reworks": 0,
+    "maximum_crash_after_initial": 3,
+    "maximum_guard_after_initial": 2,
+    "persist_across_all035phases": true
+  },
+  "resources": {
+    "all_new_output_bytes_max": 67108864,
+    "cleanup_seconds": 60,
+    "cpu_threads_max": 4,
+    "phase_wall_seconds": 360,
+    "sampled_combined_rss_max_bytes": 2147483648,
+    "shared_lock_inode": 204740392
+  },
+  "triple_size": 3,
+  "whole_hypothesis": "select original index only; retain R,t,whole original E stack,GCmask/source pin,conditional policy identity; recovered essential branch UNKNOWN_NOT_RETAINED"
+}
